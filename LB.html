@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: url('./fonts/icomoon.eot?f8hkli');
+            src: url('./fonts/icomoon.eot?f8hkli#iefix') format('embedded-opentype'),
+                url('./fonts/icomoon.ttf?f8hkli') format('truetype'),
+                url('./fonts/icomoon.woff?f8hkli') format('woff'),
+                url('./fonts/icomoon.svg?f8hkli#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .w {
+            width: 1190px;
+            margin: 0 auto;
+        }
+
+        header {
+            height: 80px;
+            background-color: #c53220;
+        }
+
+        header h1 {
+            height: 80px;
+            line-height: 80px;
+            color: #fff;
+        }
+
+        nav {
+            background-color: #eee;
+            padding: 10px 0;
+        }
+
+        nav .w {
+            position: relative;
+            height: 470px;
+            background-color: #fff;
+        }
+
+        nav .w .pic {
+            position: absolute;
+            top: 0px;
+            left: 200px;
+            width: 590px;
+            height: 470px;
+            background-color: orange;
+            overflow: hidden;
+        }
+
+        nav .w .pic .btn {
+            width: 25px;
+            height: 35px;
+            background-color: rgb(0, 0, 0, 0.15);
+            border: none;
+            z-index: 3;
+        }
+
+        nav .w .pic .btn i {
+            font-family: 'icomoon';
+            font-style: normal;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav .w .pic .btn:hover {
+            background-color: rgb(0, 0, 0, 0.4);
+        }
+
+        nav .w .pic .pre {
+            position: absolute;
+            border-radius: 0 18px 18px 0;
+            top: 235px;
+            left: 0;
+            margin-top: -17px;
+        }
+
+        nav .w .pic .next {
+            position: absolute;
+            border-radius: 18px 0 0 18px;
+            top: 235px;
+            right: 0;
+            margin-top: -17px;
+        }
+
+        nav .w .pic .jump {
+            position: absolute;
+            left: 30px;
+            bottom: 20px;
+        }
+
+        nav .w .pic .jump ul li {
+            list-style: none;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 4px;
+            border: 2px solid rgba(0, 0, 0, .05);
+            background-color: rgba(255, 255, 255, .4);
+        }
+
+        nav .w .pic #img_box {
+            height: 470px;
+        }
+
+        nav .w .pic #img_box img {
+            float: left;
+            width: 590px;
+            height: 470px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="w">京 东</h1>
+    </header>
+    <nav>
+        <div class="w">
+            <div class="pic" onmouseover="doStop()" onmouseout="doGo()">
+                <button class="btn pre" onclick="getPre()"><i></i></button>
+                <button class="btn next" onclick="getNext()"><i></i></button>
+                <div class="jump">
+                    <ul>
+                        <li id="l0" onclick="jump(this)"></li>
+                        <li id="l1" onclick="jump(this)"></li>
+                        <li id="l2" onclick="jump(this)"></li>
+                        <li id="l3" onclick="jump(this)"></li>
+                        <li id="l4" onclick="jump(this)"></li>
+                        <li id="l5" onclick="jump(this)"></li>
+                        <li id="l6" onclick="jump(this)"></li>
+                    </ul>
+                </div>
+                <div id="img_box">
+                    <img src="./imgs/01.webp" alt="">
+                    <img src="./imgs/02.jpg" alt="">
+                    <img src="./imgs/03.webp" alt="">
+                    <img src="./imgs/04.jpg" alt="">
+                    <img src="./imgs/05.webp" alt="">
+                    <img src="./imgs/06.jpg" alt="">
+                    <img src="./imgs/07.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </nav>
+</body>
+<script>
+    var i = 0;
+    document.getElementById('l0').style.backgroundColor = '#fff';
+    document.getElementById('l0').style.borderColor = 'rgba(0, 0, 0, .1)';
+    function getNew() {
+        if (i < 6) {
+            i++;
+        }
+        else {
+            i = 0;
+        }
+        document.getElementById('img_box').style.marginLeft = (-590 * i) + 'px';
+        for (var j = 0; j < 7; j++) {
+            if (j == i) {
+                document.getElementById('l' + i).style.backgroundColor = '#fff';
+                document.getElementById('l' + i).style.borderColor = 'rgba(0, 0, 0, .1)';
+            }
+            else {
+                document.getElementById('l' + j).style.backgroundColor = 'rgba(255,255,255,.4)';
+                document.getElementById('l' + j).style.borderColor = 'rgba(0, 0, 0, .05)';
+            }
+        }
+        console.log(i);
+    }
+
+    var getImg = setInterval(getNew, 3000);
+    function doStop() {
+        clearInterval(getImg);
+        console.log('stop');
+    }
+
+    function doGo() {
+        getImg = setInterval(getNew, 3000);
+        console.log('start');
+    }
+
+    function getPre() {
+        if (i > 0 && i <= 6) {
+            i--;
+        }
+        document.getElementById('img_box').style.marginLeft = (-590 * i) + 'px';
+        console.log(i);
+    }
+    function getNext() {
+        if (i < 6) {
+            i++;
+        }
+        document.getElementById('img_box').style.marginLeft = (-590 * i) + 'px';
+        console.log(i);
+    }
+    function jump(obj) {
+        for (var k = 0; k < 7; k++) {
+            if (obj.id == 'l' + k) {
+                document.getElementById('img_box').style.marginLeft = (-590 * k) + 'px';
+                document.getElementById('l' + k).style.backgroundColor = '#fff';
+                document.getElementById('l' + k).style.borderColor = 'rgba(0, 0, 0, .1)';
+            }
+            else {
+                document.getElementById('l' + k).style.backgroundColor = 'rgba(255,255,255,.4)';
+                document.getElementById('l' + k).style.borderColor = 'rgba(0, 0, 0, .05)';
+            }
+        }
+    }
+</script>
+
+</html>
